@@ -1,27 +1,3 @@
-<?php
-require_once 'config/config.php'; // Koneksi database
-require_once 'controllers/UserController.php';
-
-// Inisialisasi UserController
-$userController = new UserController($conn);
-
-$error = ""; // Variabel untuk menampilkan error
-
-// Proses form login
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // Validasi login melalui UserController
-    if ($userController->login($username, $password)) {
-        header("Location: index.php?action=dashboard");
-        exit;
-    } else {
-        $error = "Username atau Password salah!";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,9 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="login-container">
         <h2>Login</h2>
-        <?php if ($error): ?>
-            <div class="error"><?= htmlspecialchars($error) ?></div>
-        <?php endif; ?>
+        
         <form method="POST" action="">
             <input type="text" name="username" placeholder="Username" required><br>
             <input type="password" name="password" placeholder="Password" required><br>
